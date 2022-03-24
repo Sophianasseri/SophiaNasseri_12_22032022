@@ -5,7 +5,7 @@ import { mainData } from '../../mockedData/mockedData';
 
 function Home() {
   return (
-    <main>
+    <main className={styles.main}>
       <div className={styles.container}>
         {mainData.map((element) => (
           <div key={element.id}>

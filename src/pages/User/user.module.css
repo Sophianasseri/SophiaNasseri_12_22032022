@@ -1,0 +1,24 @@
+.main {
+  margin: auto;
+  max-width: 1440px;
+}
+.container {
+  margin-left: 150px;
+  margin-top: 30px;
+}
+.name {
+  font-weight: 500;
+  font-size: 40px;
+}
+.name span {
+  color: var(--main-color);
+}
+
+.message {
+  margin: 20px 0;
+  font-size: 20px;
+}
+
+.keyData {
+  float: right;
+}
