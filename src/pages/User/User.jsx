@@ -7,6 +7,7 @@ import protein from '../../assets/protein.svg';
 import carbs from '../../assets/carbs.svg';
 import fat from '../../assets/fat.svg';
 import styles from './user.module.css';
+import AverageSession from '../../components/Charts/AverageSession/AverageSession';
 
 function User() {
   const { id } = useParams();
@@ -36,6 +37,9 @@ function User() {
             <p className={styles.message}>
               Félicitations! vous avez explosé vos objectifs hier 👏
             </p>
+          </div>
+          <div>
+            <AverageSession />
           </div>
           <div className={styles.keyData}>
             <KeyData

@@ -1,0 +1,7 @@
+.chart {
+  background: var(--main-color);
+  height: 263px;
+  width: 258px;
+  border-radius: 5px;
+  color: white;
+}
