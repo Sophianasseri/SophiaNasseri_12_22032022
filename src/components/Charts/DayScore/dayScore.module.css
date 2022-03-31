@@ -1,0 +1,19 @@
+.chart {
+  height: 263px;
+  width: 258px;
+  background: #fbfbfb;
+  padding: 2rem;
+}
+
+.svg {
+  display: flex;
+  margin: auto;
+}
+
+.circle {
+  background: white;
+}
+.score {
+  font-size: 25px;
+  font-weight: 700;
+}

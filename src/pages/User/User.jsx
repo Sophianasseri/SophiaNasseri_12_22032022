@@ -8,6 +8,7 @@ import carbs from '../../assets/carbs.svg';
 import fat from '../../assets/fat.svg';
 import styles from './user.module.css';
 import AverageSession from '../../components/Charts/AverageSession/AverageSession';
+import Score from '../../components/Charts/DayScore/DayScore';
 
 function User() {
   const { id } = useParams();
@@ -40,6 +41,7 @@ function User() {
           </div>
           <div>
             <AverageSession />
+            <Score />
           </div>
           <div className={styles.keyData}>
             <KeyData
