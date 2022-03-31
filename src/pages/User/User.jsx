@@ -9,6 +9,7 @@ import fat from '../../assets/fat.svg';
 import styles from './user.module.css';
 import AverageSession from '../../components/Charts/AverageSession/AverageSession';
 import Score from '../../components/Charts/DayScore/DayScore';
+import Performance from '../../components/Charts/Performance/Performance';
 
 function User() {
   const { id } = useParams();
@@ -42,6 +43,7 @@ function User() {
           <div>
             <AverageSession />
             <Score />
+            <Performance />
           </div>
           <div className={styles.keyData}>
             <KeyData
