@@ -1,0 +1,18 @@
+.radar-chart {
+  background: #282d30;
+  height: 263px;
+  width: 258px;
+  border-radius: 5px;
+}
+.radar-levels path {
+  stroke: white;
+  fill: none;
+}
+.radar-shape path {
+  fill: var(--main-color);
+  opacity: 0.8;
+}
+
+.labels text {
+  color: white;
+}
