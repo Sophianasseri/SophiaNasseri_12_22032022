@@ -44,6 +44,26 @@ function Performance() {
     },
   ];
 
+  const formatedLabel = (label) => {
+    switch (label) {
+      case 'intensity':
+        return 'Intensité';
+      case 'cardio':
+        return 'Cardio';
+      case 'energy':
+        return 'Energie';
+      case 'endurance':
+        return 'Endurance';
+      case 'strength':
+        return 'Force';
+      case 'speed':
+        return 'Vitesse';
+
+      default:
+        return label;
+    }
+  };
+
   useEffect(() => {
     const numberOfSides = 6;
     const numberOfLevels = 5;
@@ -102,19 +122,18 @@ function Performance() {
 
     generateAndDrawLevels(numberOfLevels, numberOfSides);
     // Draw data shape
-    const performanceData = performance.map((perf) => perf.data);
+    const performanceData = performance[0].data;
 
     const scale = d3.scaleLinear().domain([0, 300]).range([0, r0]);
     const drawData = (dataset, n) => {
       const dataPoints = [];
-      dataset.forEach((data) => {
-        data.forEach((d, i) => {
-          const len = scale(d.value);
-          const theta = i * ((-2 * Math.PI) / n);
-          dataPoints.push({
-            ...generatePoint({ length: len, angle: theta }),
-            value: d.value,
-          });
+
+      dataset.forEach((d) => {
+        const len = scale(d.value);
+        const theta = d.kind * ((-2 * Math.PI) / n);
+        dataPoints.push({
+          ...generatePoint({ length: len, angle: theta }),
+          value: d.value,
         });
       });
 
@@ -138,17 +157,15 @@ function Performance() {
         .style('font-size', '12px');
     };
 
-    const performanceKind = performance.map((perf) => perf.kind);
+    const performanceKind = formatedLabel(performance[0].kind);
 
     const drawLabels = (dataset, sideCount) => {
       const groupL = g.append('g');
       for (let vertex = 0; vertex < sideCount; vertex += 1) {
-        dataset.forEach((data) => {
-          const angle = vertex * polyAngle;
-          const point = generatePoint({ length: 0.9 * (size / 2), angle });
-          const label = data[vertex];
-          drawText(label, point, groupL);
-        });
+        const angle = vertex * polyAngle;
+        const point = generatePoint({ length: 0.9 * (size / 2), angle });
+        const label = formatedLabel(dataset[vertex]);
+        drawText(label, point, groupL);
       }
     };
     drawLabels(performanceKind, numberOfSides + 1);
