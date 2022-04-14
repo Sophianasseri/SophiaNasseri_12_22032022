@@ -7,9 +7,10 @@ import protein from '../../assets/protein.svg';
 import carbs from '../../assets/carbs.svg';
 import fat from '../../assets/fat.svg';
 import styles from './user.module.css';
-import AverageSession from '../../components/Charts/AverageSession/AverageSession';
-import Score from '../../components/Charts/DayScore/DayScore';
 import Performance from '../../components/Charts/Performance/Performance';
+import DayScore from '../../components/Charts/DayScore/DayScore';
+import AverageSession from '../../components/Charts/AverageSession/AverageSession';
+import Activity from '../../components/Charts/Activity/Activity';
 
 function User() {
   const { id } = useParams();
@@ -41,9 +42,10 @@ function User() {
             </p>
           </div>
           <div>
+            <Activity />
             <AverageSession />
-            <Score />
             <Performance />
+            <DayScore />
           </div>
           <div className={styles.keyData}>
             <KeyData

@@ -1,55 +1,69 @@
 import React from 'react';
-import * as d3 from 'd3';
-import styles from './dayScore.module.css';
+// eslint-disable-next-line object-curly-newline
+import { ResponsiveContainer, PieChart, Pie, Cell, Label } from 'recharts';
+import CustomLabel from './CustomLabel';
+import './dayScore.css';
 
-function Score() {
-  const height = 180;
-  const width = 180;
-  const arcWidth = 12;
-  const innerRadius = width / 2 - arcWidth;
-  const outerRadius = width / 2;
-  const percent = 0.12;
-
-  // progress circle
-  const arc = d3
-    .arc()
-    .innerRadius(innerRadius)
-    .outerRadius(outerRadius)
-    .startAngle(0)
-    .cornerRadius(5);
-
-  // draw arc from value
-  const progress = (value) =>
-    // eslint-disable-next-line implicit-arrow-linebreak
-    arc({
-      endAngle: -2 * Math.PI * value,
-    });
+function DayScore() {
+  const mainData = [
+    {
+      id: 12,
+      userInfos: {
+        firstName: 'Karl',
+        lastName: 'Dovineau',
+        age: 31,
+      },
+      todayScore: 0.12,
+      keyData: {
+        calorieCount: 1930,
+        proteinCount: 155,
+        carbohydrateCount: 290,
+        lipidCount: 50,
+      },
+    },
+  ];
+  const data = [
+    { name: 'Score', value: mainData[0].todayScore },
+    { name: 'Total', value: 1 - mainData[0].todayScore },
+  ];
 
   return (
-    <div className={styles.chart}>
+    <div className="pie-chart">
       <p>Score</p>
-      <svg className={styles.svg} height={height} width={width}>
-        <g transform={`translate(${width / 2}, ${height / 2})`}>
-          <path d={progress(1)} fill="none" />
-        </g>
-        <g transform={`translate(${width / 2}, ${height / 2})`}>
-          <path d={progress(percent)} fill="red" />
-          <circle className={styles.circle} cx="0" cy="0" r="78" fill="white" />
-          <text textAnchor="middle">
-            <tspan className={styles.score} x="0" dy="-10">
-              {`${percent * 100}%`}
-            </tspan>
-            <tspan fill="#74798c" x="0" dy="1.5em">
-              de votre
-            </tspan>
-            <tspan fill="#74798c" x="0" dy="1.5em">
-              objectif
-            </tspan>
-          </text>
-        </g>
-      </svg>
+      <ResponsiveContainer width="100%" height="100%">
+        <PieChart>
+          <Pie
+            data={data}
+            cx="50%"
+            cy="50%"
+            dataKey="value"
+            innerRadius={75}
+            outerRadius={90}
+            cornerRadius="50%"
+            startAngle={130}
+            endAngle={-160}
+          >
+            {data.map((entry, index) => {
+              if (index === 1) {
+                // eslint-disable-next-line react/no-array-index-key
+                return <Cell key={`cell-${index}`} fill="none" stroke="none" />;
+              }
+
+              return (
+                // eslint-disable-next-line react/no-array-index-key
+                <Cell key={`cell-${index}`} fill="#ff0101" stroke="none" />
+              );
+            })}
+
+            <Label
+              content={<CustomLabel score={data[0].value * 100} />}
+              position="center"
+            />
+          </Pie>
+        </PieChart>
+      </ResponsiveContainer>
     </div>
   );
 }
 
-export default Score;
+export default DayScore;

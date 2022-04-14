@@ -1,9 +1,16 @@
-import React, { useEffect, useRef } from 'react';
-import * as d3 from 'd3';
+import React from 'react';
+// eslint-disable-next-line object-curly-newline
+import {
+  Radar,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  ResponsiveContainer,
+} from 'recharts';
 import './performance.css';
 
 function Performance() {
-  const svgRef = useRef();
   const performance = [
     {
       userId: 12,
@@ -44,137 +51,49 @@ function Performance() {
     },
   ];
 
+  const performanceData = performance[0].data;
+
   const formatedLabel = (label) => {
     switch (label) {
-      case 'intensity':
-        return 'Intensité';
-      case 'cardio':
+      case 1:
         return 'Cardio';
-      case 'energy':
+      case 2:
         return 'Energie';
-      case 'endurance':
+      case 3:
         return 'Endurance';
-      case 'strength':
+      case 4:
         return 'Force';
-      case 'speed':
+      case 5:
         return 'Vitesse';
+      case 6:
+        return 'Intensité';
 
       default:
         return label;
     }
   };
 
-  useEffect(() => {
-    const numberOfSides = 6;
-    const numberOfLevels = 5;
-    const size = Math.min(window.innerWidth, window.innerHeight, 258);
-    const offset = Math.PI;
-    const polyAngle = (Math.PI * -2) / numberOfSides;
-    const r = 0.8 * size;
-    const r0 = r / 2;
-    const center = {
-      x: size / 2,
-      y: size / 2,
-    };
-
-    d3.select(svgRef.current).attr('width', size).attr('height', size);
-    const g = d3.select(svgRef.current).append('g');
-
-    const generatePoint = ({ length, angle }) => {
-      const point = {
-        x: center.x + length * Math.sin(offset - angle),
-        y: center.y + length * Math.cos(offset - angle),
-      };
-      return point;
-    };
-
-    let points = [];
-    const length = 100;
-    for (let vertex = 0; vertex < numberOfSides; vertex += 1) {
-      const theta = vertex * polyAngle;
-      points.push(generatePoint({ length, angle: theta }));
-    }
-    const drawPath = (pts, parent) => {
-      const lineGenerator = d3
-        .line()
-        .x((d) => d.x)
-        .y((d) => d.y);
-
-      parent.append('path').attr('d', lineGenerator(pts));
-    };
-
-    points = [...points, points[0]];
-    // draw polygon levels
-    const generateAndDrawLevels = (levelsCount, sideCount) => {
-      for (let level = 1; level <= levelsCount; level += 1) {
-        const hyp = (level / levelsCount) * r0;
-
-        const levelPoints = [];
-        for (let vertex = 0; vertex < sideCount; vertex += 1) {
-          const theta = vertex * polyAngle;
-
-          levelPoints.push(generatePoint({ length: hyp, angle: theta }));
-        }
-        const group = g.append('g').attr('class', 'radar-levels');
-        drawPath([...levelPoints, levelPoints[0]], group);
-      }
-    };
-
-    generateAndDrawLevels(numberOfLevels, numberOfSides);
-    // Draw data shape
-    const performanceData = performance[0].data;
-
-    const scale = d3.scaleLinear().domain([0, 300]).range([0, r0]);
-    const drawData = (dataset, n) => {
-      const dataPoints = [];
-
-      dataset.forEach((d) => {
-        const len = scale(d.value);
-        const theta = d.kind * ((-2 * Math.PI) / n);
-        dataPoints.push({
-          ...generatePoint({ length: len, angle: theta }),
-          value: d.value,
-        });
-      });
-
-      const group = g.append('g').attr('class', 'radar-shape');
-
-      drawPath([...dataPoints, dataPoints[0]], group);
-    };
-
-    drawData(performanceData, numberOfSides);
-
-    // Draw labels
-
-    const drawText = (text, point, textGroup) => {
-      textGroup
-        .append('text')
-        .attr('x', point.x)
-        .attr('y', point.y)
-        .html(text)
-        .style('text-anchor', 'middle')
-        .attr('fill', 'white')
-        .style('font-size', '12px');
-    };
-
-    const performanceKind = formatedLabel(performance[0].kind);
-
-    const drawLabels = (dataset, sideCount) => {
-      const groupL = g.append('g');
-      for (let vertex = 0; vertex < sideCount; vertex += 1) {
-        const angle = vertex * polyAngle;
-        const point = generatePoint({ length: 0.9 * (size / 2), angle });
-        const label = formatedLabel(dataset[vertex]);
-        drawText(label, point, groupL);
-      }
-    };
-    drawLabels(performanceKind, numberOfSides + 1);
-  }, [performance]);
-
   return (
     <div className="radar-chart">
-      <svg id="" ref={svgRef} />
+      <ResponsiveContainer className="test" width="100%" height="100%">
+        <RadarChart
+          outerRadius="70%"
+          data={performanceData}
+          startAngle="30"
+          endAngle="-330"
+        >
+          <PolarGrid radialLines={false} stroke="white" />
+          <PolarRadiusAxis tickCount={6} tick={false} axisLine={false} />
+          <PolarAngleAxis
+            dataKey="kind"
+            tick={{ fill: 'white', fontSize: '12px' }}
+            tickFormatter={formatedLabel}
+          />
+          <Radar dataKey="value" fill="#ff0101" fillOpacity={0.7} />
+        </RadarChart>
+      </ResponsiveContainer>
     </div>
   );
 }
+
 export default Performance;
