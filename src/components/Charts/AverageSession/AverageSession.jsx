@@ -43,7 +43,7 @@ const sessions = [
 ];
 
 function CustomTooltip({ active, payload }) {
-  if (active && payload) {
+  if (active && payload && payload.length) {
     return (
       <div className="line-tooltip">
         <p className="tooltipLabel">{`${payload[0].value}min`}</p>
@@ -94,7 +94,10 @@ function AverageSession() {
             dataKey="sessionLength"
             hide
           />
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip
+            content={<CustomTooltip />}
+            cursor={{ stroke: 'rgba(0, 0, 0, 0.1)', strokeWidth: 60 }}
+          />
           <Line
             type="basis"
             dataKey="sessionLength"

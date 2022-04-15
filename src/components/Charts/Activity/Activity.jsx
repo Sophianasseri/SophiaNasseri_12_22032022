@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import {
   BarChart,
@@ -7,6 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  Legend,
 } from 'recharts';
 import './activity.css';
 
@@ -52,27 +54,47 @@ const activity = [
     ],
   },
 ];
+
+function CustomTooltip({ active, payload }) {
+  if (active && payload && payload.length) {
+    return (
+      <div className="line-tooltip">
+        <p className="tooltipLabel">{`${payload[0].value}kg`}</p>
+        <p className="tooltipLabel">{`${payload[1].value}kCal`}</p>
+      </div>
+    );
+  }
+
+  return null;
+}
+const days = ['1', '2', '3', '4', '5', '6', '7'];
 function Activity() {
   const activityData = activity[0].sessions;
   return (
     <div className="bar-chart">
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart
-          data={activityData}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="day" />
+        <BarChart data={activityData}>
+          <CartesianGrid
+            strokeDasharray="3 3"
+            vertical={false}
+            stroke="#DEDEDE"
+          />
+          <XAxis
+            dataKey="day"
+            tickLine={false}
+            axisLine={false}
+            tickFormatter={(d, i) => days[i]}
+            tick={{ fill: '#9B9EAC', fontSize: '14px' }}
+          />
           <YAxis
             yAxisId="kilogram"
             dataKey="kilogram"
             orientation="right"
             domain={['dataMin -1', 'dataMax +1']}
+            axisLine={false}
+            tickLine={false}
+            tick={{ fill: '#9B9EAC', fontSize: '14px' }}
+            tickCount={4}
           />
           <YAxis
             hide
@@ -80,20 +102,34 @@ function Activity() {
             dataKey="calories"
             domain={['dataMin -10', 'dataMax +10']}
           />
-          <Tooltip />
+          <Tooltip content={<CustomTooltip />} />
+          <Legend
+            margin={{
+              top: 5,
+              left: 0,
+              right: 5,
+              bottom: 5,
+            }}
+            verticalAlign="top"
+            align="right"
+            iconType="circle"
+            iconSize={8}
+          />
           <Bar
-            barSize={8}
+            name="Poids(kg)"
+            barSize={9}
             yAxisId="kilogram"
             dataKey="kilogram"
             fill="#282d30"
-            radius={[3, 3, 0, 0]}
+            radius={[7, 7, 0, 0]}
           />
           <Bar
-            barSize={8}
+            name="Calories brûlées (kCal)"
+            barSize={9}
             yAxisId="calories"
             dataKey="calories"
             fill="#ff0101"
-            radius={[3, 3, 0, 0]}
+            radius={[7, 7, 0, 0]}
           />
         </BarChart>
       </ResponsiveContainer>
