@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
-// eslint-disable-next-line react/prop-types
+import PropTypes from 'prop-types';
+
 function CustomLabel({ viewBox, score = 0 }) {
-  // eslint-disable-next-line react/prop-types
   const { cx, cy } = viewBox;
   return (
     <>
@@ -41,3 +41,14 @@ function CustomLabel({ viewBox, score = 0 }) {
   );
 }
 export default CustomLabel;
+
+CustomLabel.propTypes = {
+  viewBox: PropTypes.shape({
+    cx: PropTypes.number,
+    cy: PropTypes.number,
+  }),
+  score: PropTypes.number.isRequired,
+};
+CustomLabel.defaultProps = {
+  viewBox: {},
+};

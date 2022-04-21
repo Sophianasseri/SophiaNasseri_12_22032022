@@ -1,6 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {
   LineChart,
   Line,
@@ -9,44 +8,13 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import './averageSession.css';
-
-const sessions = [
-  {
-    day: 1,
-    sessionLength: 30,
-  },
-  {
-    day: 2,
-    sessionLength: 23,
-  },
-  {
-    day: 3,
-    sessionLength: 45,
-  },
-  {
-    day: 4,
-    sessionLength: 50,
-  },
-  {
-    day: 5,
-    sessionLength: 0,
-  },
-  {
-    day: 6,
-    sessionLength: 0,
-  },
-  {
-    day: 7,
-    sessionLength: 60,
-  },
-];
+import styles from './averageSession.module.css';
 
 function CustomTooltip({ active, payload }) {
   if (active && payload && payload.length) {
     return (
-      <div className="line-tooltip">
-        <p className="tooltipLabel">{`${payload[0].value}min`}</p>
+      <div className={styles.tooltip}>
+        <p>{`${payload[0].value}min`}</p>
       </div>
     );
   }
@@ -54,7 +22,7 @@ function CustomTooltip({ active, payload }) {
   return null;
 }
 
-function AverageSession() {
+function AverageSession({ data }) {
   const formatedDays = (days) => {
     switch (days) {
       case 1:
@@ -77,16 +45,18 @@ function AverageSession() {
     }
   };
   return (
-    <div className="line-chart">
-      <p>Durée moyenne des sessions</p>
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={sessions}>
+    <div className={styles.chart}>
+      <p className={styles.title}>Durée moyenne des sessions</p>
+      <ResponsiveContainer width="100%" height="80%">
+        <LineChart data={data}>
           <XAxis
             dataKey="day"
             tickLine={false}
             axisLine={false}
             tickFormatter={formatedDays}
             tick={{ fill: 'white' }}
+            tickMargin={10}
+            padding={{ left: 10, right: 10 }}
           />
           <YAxis
             type="number"
@@ -99,7 +69,7 @@ function AverageSession() {
             cursor={{ stroke: 'rgba(0, 0, 0, 0.1)', strokeWidth: 60 }}
           />
           <Line
-            type="basis"
+            type="natural"
             dataKey="sessionLength"
             stroke="white"
             strokeWidth={2}
@@ -112,3 +82,24 @@ function AverageSession() {
 }
 
 export default AverageSession;
+
+CustomTooltip.propTypes = {
+  active: PropTypes.bool,
+  payload: PropTypes.arrayOf(Object),
+};
+CustomTooltip.defaultProps = {
+  active: false,
+  payload: [],
+};
+AverageSession.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      day: PropTypes.number,
+      sessionLength: PropTypes.number,
+    }),
+  ),
+};
+
+AverageSession.defaultProps = {
+  data: 'average-session',
+};

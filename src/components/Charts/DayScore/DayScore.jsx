@@ -1,30 +1,14 @@
+/* eslint-disable object-curly-newline */
 import React from 'react';
-// eslint-disable-next-line object-curly-newline
+import PropTypes from 'prop-types';
 import { ResponsiveContainer, PieChart, Pie, Cell, Label } from 'recharts';
 import CustomLabel from './CustomLabel';
 import './dayScore.css';
 
-function DayScore() {
-  const mainData = [
-    {
-      id: 12,
-      userInfos: {
-        firstName: 'Karl',
-        lastName: 'Dovineau',
-        age: 31,
-      },
-      todayScore: 0.12,
-      keyData: {
-        calorieCount: 1930,
-        proteinCount: 155,
-        carbohydrateCount: 290,
-        lipidCount: 50,
-      },
-    },
-  ];
-  const data = [
-    { name: 'Score', value: mainData[0].todayScore },
-    { name: 'Total', value: 1 - mainData[0].todayScore },
+function DayScore({ data }) {
+  const pieData = [
+    { name: 'Score', value: data },
+    { name: 'Total', value: 1 - data },
   ];
 
   return (
@@ -33,7 +17,7 @@ function DayScore() {
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
-            data={data}
+            data={pieData}
             cx="50%"
             cy="50%"
             dataKey="value"
@@ -43,20 +27,18 @@ function DayScore() {
             startAngle={130}
             endAngle={-160}
           >
-            {data.map((entry, index) => {
+            {pieData.map((entry, index) => {
               if (index === 1) {
-                // eslint-disable-next-line react/no-array-index-key
-                return <Cell key={`cell-${index}`} fill="none" stroke="none" />;
+                return <Cell key={`cell-${entry}`} fill="none" stroke="none" />;
               }
 
               return (
-                // eslint-disable-next-line react/no-array-index-key
-                <Cell key={`cell-${index}`} fill="#ff0101" stroke="none" />
+                <Cell key={`cell-${entry}`} fill="#ff0101" stroke="none" />
               );
             })}
 
             <Label
-              content={<CustomLabel score={data[0].value * 100} />}
+              content={<CustomLabel score={pieData[0].value * 100} />}
               position="center"
             />
           </Pie>
@@ -67,3 +49,7 @@ function DayScore() {
 }
 
 export default DayScore;
+
+DayScore.propTypes = {
+  data: PropTypes.number.isRequired,
+};

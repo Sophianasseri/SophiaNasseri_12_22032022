@@ -1,27 +1,47 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const useFetch = (url) => {
+const useFetch = (userId) => {
   const [data, setData] = useState({});
   const [error, setError] = useState(false);
   const [isLoading, setLoading] = useState(true);
 
+  const endpoints = [
+    `http://localhost:3000/user/${userId}`,
+    `http://localhost:3000/user/${userId}/activity`,
+    `http://localhost:3000/user/${userId}/average-sessions`,
+    `http://localhost:3000/user/${userId}/performance`,
+  ];
+
   useEffect(() => {
-    if (!url) return;
-    setLoading(true);
     const fetchData = async () => {
       try {
-        const response = await axios.get(url);
-        setData(response.data);
+        await Promise.all(
+          endpoints.map((endpoint) => axios.get(endpoint)),
+        ).then(
+          axios.spread((...responses) => {
+            const userData = responses[0].data.data;
+            const activityData = responses[1].data.data;
+            const sessionsData = responses[2].data.data;
+            const performanceData = responses[3].data.data;
+            setData(
+              Array.from([
+                userData,
+                activityData,
+                sessionsData,
+                performanceData,
+              ]),
+            );
+            setLoading(false);
+          }),
+        );
       } catch (err) {
         console.log(err);
         setError(true);
-      } finally {
-        setLoading(false);
       }
     };
     fetchData();
-  }, [url]);
+  }, []);
   return { data, error, isLoading };
 };
 export default useFetch;

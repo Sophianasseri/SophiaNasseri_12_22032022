@@ -1,5 +1,5 @@
 import React from 'react';
-// eslint-disable-next-line object-curly-newline
+import PropTypes from 'prop-types';
 import {
   Radar,
   RadarChart,
@@ -10,49 +10,9 @@ import {
 } from 'recharts';
 import './performance.css';
 
-function Performance() {
-  const performance = [
-    {
-      userId: 12,
-      kind: {
-        1: 'cardio',
-        2: 'energy',
-        3: 'endurance',
-        4: 'strength',
-        5: 'speed',
-        6: 'intensity',
-      },
-      data: [
-        {
-          value: 80,
-          kind: 1,
-        },
-        {
-          value: 120,
-          kind: 2,
-        },
-        {
-          value: 140,
-          kind: 3,
-        },
-        {
-          value: 50,
-          kind: 4,
-        },
-        {
-          value: 200,
-          kind: 5,
-        },
-        {
-          value: 90,
-          kind: 6,
-        },
-      ],
-    },
-  ];
-
-  const performanceData = performance[0].data;
-
+function Performance({ data }) {
+  console.log(data);
+  const performanceData = data.data;
   const formatedLabel = (label) => {
     switch (label) {
       case 1:
@@ -97,3 +57,16 @@ function Performance() {
 }
 
 export default Performance;
+
+Performance.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      day: PropTypes.number,
+      sessionLength: PropTypes.number,
+    }),
+  ),
+};
+
+Performance.defaultProps = {
+  data: 'average-session',
+};

@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   BarChart,
   Bar,
@@ -10,57 +10,14 @@ import {
   ResponsiveContainer,
   Legend,
 } from 'recharts';
-import './activity.css';
-
-const activity = [
-  {
-    userId: 12,
-    sessions: [
-      {
-        day: '2020-07-01',
-        kilogram: 80,
-        calories: 240,
-      },
-      {
-        day: '2020-07-02',
-        kilogram: 80,
-        calories: 220,
-      },
-      {
-        day: '2020-07-03',
-        kilogram: 81,
-        calories: 280,
-      },
-      {
-        day: '2020-07-04',
-        kilogram: 81,
-        calories: 290,
-      },
-      {
-        day: '2020-07-05',
-        kilogram: 80,
-        calories: 160,
-      },
-      {
-        day: '2020-07-06',
-        kilogram: 78,
-        calories: 162,
-      },
-      {
-        day: '2020-07-07',
-        kilogram: 76,
-        calories: 390,
-      },
-    ],
-  },
-];
+import styles from './activity.module.css';
 
 function CustomTooltip({ active, payload }) {
   if (active && payload && payload.length) {
     return (
-      <div className="line-tooltip">
-        <p className="tooltipLabel">{`${payload[0].value}kg`}</p>
-        <p className="tooltipLabel">{`${payload[1].value}kCal`}</p>
+      <div className={styles.tooltip}>
+        <p>{`${payload[0].value}kg`}</p>
+        <p>{`${payload[1].value}kCal`}</p>
       </div>
     );
   }
@@ -68,12 +25,12 @@ function CustomTooltip({ active, payload }) {
   return null;
 }
 const days = ['1', '2', '3', '4', '5', '6', '7'];
-function Activity() {
-  const activityData = activity[0].sessions;
+function Activity({ data }) {
   return (
-    <div className="bar-chart">
+    <div className={styles.chart}>
+      <p className={styles.title}>Activité quotidienne</p>
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={activityData}>
+        <BarChart data={data} margin={{ bottom: 10 }}>
           <CartesianGrid
             strokeDasharray="3 3"
             vertical={false}
@@ -85,6 +42,7 @@ function Activity() {
             axisLine={false}
             tickFormatter={(d, i) => days[i]}
             tick={{ fill: '#9B9EAC', fontSize: '14px' }}
+            margin={{ bottom: 10 }}
           />
           <YAxis
             yAxisId="kilogram"
@@ -104,11 +62,9 @@ function Activity() {
           />
           <Tooltip content={<CustomTooltip />} />
           <Legend
-            margin={{
-              top: 5,
-              left: 0,
-              right: 5,
-              bottom: 5,
+            wrapperStyle={{
+              top: -50,
+              marginRight: 15,
             }}
             verticalAlign="top"
             align="right"
@@ -138,3 +94,25 @@ function Activity() {
 }
 
 export default Activity;
+
+CustomTooltip.propTypes = {
+  active: PropTypes.bool,
+  payload: PropTypes.arrayOf(Object),
+};
+CustomTooltip.defaultProps = {
+  active: false,
+  payload: [],
+};
+Activity.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      day: PropTypes.string,
+      kilogram: PropTypes.number,
+      calories: PropTypes.number,
+    }),
+  ),
+};
+
+Activity.defaultProps = {
+  data: 'activity',
+};
