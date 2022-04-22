@@ -5,6 +5,10 @@ import { ResponsiveContainer, PieChart, Pie, Cell, Label } from 'recharts';
 import CustomLabel from './CustomLabel';
 import './dayScore.css';
 
+/**
+ * Component for rendering user's daily score in a pie chart
+ * @param {Number} data User's daily score data
+ */
 function DayScore({ data }) {
   const pieData = [
     { name: 'Score', value: data },

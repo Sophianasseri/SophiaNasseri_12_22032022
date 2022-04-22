@@ -12,6 +12,11 @@ import {
 } from 'recharts';
 import styles from './activity.module.css';
 
+/**
+ * Display a custom tooltip on chart
+ * @param {Boolean} active If true the tooltop will be displayed
+ * @param {Array} payload Data to be displayed in the tooltip
+ */
 function CustomTooltip({ active, payload }) {
   if (active && payload && payload.length) {
     return (
@@ -25,6 +30,10 @@ function CustomTooltip({ active, payload }) {
   return null;
 }
 const days = ['1', '2', '3', '4', '5', '6', '7'];
+/**
+ * Component for rendering user's daily activity in a bar chart
+ * @param {Array} data User's daily  sessions data
+ */
 function Activity({ data }) {
   return (
     <div className={styles.chart}>

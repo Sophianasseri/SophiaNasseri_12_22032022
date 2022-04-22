@@ -37,37 +37,41 @@ function User() {
               Félicitations! vous avez explosé vos objectifs hier 👏
             </p>
           </div>
-          <div>
-            <Activity data={activityData.sessions} />
-            <AverageSession data={sessionsData.sessions} />
-            <Performance data={performanceData} />
-            <DayScore data={userData.todayScore || userData.score} />
-          </div>
-          <div className={styles.keyData}>
-            <KeyData
-              icon={calories}
-              count={userData.keyData.calorieCount}
-              unit="kCal"
-              name="Calories"
-            />
-            <KeyData
-              icon={protein}
-              count={userData.keyData.proteinCount}
-              unit="g"
-              name="Protéines"
-            />
-            <KeyData
-              icon={carbs}
-              count={userData.keyData.carbohydrateCount}
-              unit="g"
-              name="Glucides"
-            />
-            <KeyData
-              icon={fat}
-              count={userData.keyData.lipidCount}
-              unit="g"
-              name="Lipides"
-            />
+          <div className={styles.stats}>
+            <div>
+              <Activity data={activityData.sessions} />
+              <div className={styles.smallCharts}>
+                <AverageSession data={sessionsData.sessions} />
+                <Performance data={performanceData} />
+                <DayScore data={userData.todayScore || userData.score} />
+              </div>
+            </div>
+            <div className={styles.keyData}>
+              <KeyData
+                icon={calories}
+                count={userData.keyData.calorieCount}
+                unit="kCal"
+                name="Calories"
+              />
+              <KeyData
+                icon={protein}
+                count={userData.keyData.proteinCount}
+                unit="g"
+                name="Protéines"
+              />
+              <KeyData
+                icon={carbs}
+                count={userData.keyData.carbohydrateCount}
+                unit="g"
+                name="Glucides"
+              />
+              <KeyData
+                icon={fat}
+                count={userData.keyData.lipidCount}
+                unit="g"
+                name="Lipides"
+              />
+            </div>
           </div>
         </div>
       ) : (

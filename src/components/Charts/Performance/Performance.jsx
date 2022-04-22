@@ -10,9 +10,13 @@ import {
 } from 'recharts';
 import './performance.css';
 
+/**
+ * Component for rendring user's daily score in a pie chart
+ * @param {Object} data User's daily score data
+ */
 function Performance({ data }) {
-  console.log(data);
-  const performanceData = data.data;
+  const performanceData = data.data.reverse();
+
   const formatedLabel = (label) => {
     switch (label) {
       case 1:
@@ -59,12 +63,10 @@ function Performance({ data }) {
 export default Performance;
 
 Performance.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      day: PropTypes.number,
-      sessionLength: PropTypes.number,
-    }),
-  ),
+  data: PropTypes.shape({
+    kind: PropTypes.objectOf(PropTypes.string),
+    data: PropTypes.arrayOf(Object),
+  }),
 };
 
 Performance.defaultProps = {

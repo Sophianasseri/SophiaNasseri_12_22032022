@@ -10,6 +10,11 @@ import {
 } from 'recharts';
 import styles from './averageSession.module.css';
 
+/**
+ * Display a custom tooltip on chart
+ * @param {Boolean} active If true the tooltop will be displayed
+ * @param {Array} payload Data to be displayed in the tooltip
+ */
 function CustomTooltip({ active, payload }) {
   if (active && payload && payload.length) {
     return (
@@ -21,8 +26,15 @@ function CustomTooltip({ active, payload }) {
 
   return null;
 }
-
+/**
+ * Component for rendering user's performance in a radar chart
+ * @param {Array} data User's performance data
+ */
 function AverageSession({ data }) {
+  /**
+   * Displays days in a string format instead of numbers
+   * @param {String} day
+   */
   const formatedDays = (days) => {
     switch (days) {
       case 1:
