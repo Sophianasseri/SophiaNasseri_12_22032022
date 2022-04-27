@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const useFetch = (userId) => {
-  const [data, setData] = useState({});
+  const [dataUser, setDataUser] = useState({});
   const [error, setError] = useState(false);
   const [isLoading, setLoading] = useState(true);
 
@@ -24,7 +24,7 @@ const useFetch = (userId) => {
             const activityData = responses[1].data.data;
             const sessionsData = responses[2].data.data;
             const performanceData = responses[3].data.data;
-            setData(
+            setDataUser(
               Array.from([
                 userData,
                 activityData,
@@ -42,6 +42,6 @@ const useFetch = (userId) => {
     };
     fetchData();
   }, []);
-  return { data, error, isLoading };
+  return { dataUser, error, isLoading };
 };
 export default useFetch;
