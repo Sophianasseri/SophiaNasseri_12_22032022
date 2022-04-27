@@ -4,7 +4,12 @@
   background: black;
   color: white;
   padding: 0.5rem 1rem;
-  font-size: 20px;
+  font-size: 24px;
+  height: 91px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
 }
 .nav {
   width: 100%;

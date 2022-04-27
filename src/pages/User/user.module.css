@@ -3,12 +3,11 @@
   max-width: 1440px;
 }
 .container {
-  margin-left: 150px;
-  margin-top: 30px;
+  margin: 130px 50px 50px 170px;
 }
 .name {
   font-weight: 500;
-  font-size: 40px;
+  font-size: 48px;
 }
 .name span {
   color: var(--main-color);
@@ -16,18 +15,25 @@
 
 .message {
   margin: 20px 0;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .stats {
   display: flex;
   justify-content: space-between;
+  margin-top: 50px;
 }
 
 .smallCharts {
   display: flex;
   justify-content: space-between;
   margin-top: 30px;
+}
+
+.keyData {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 @keyframes loader {
@@ -41,7 +47,7 @@
 }
 
 .loaderContainer {
-  margin: 300px auto auto auto;
+  margin: 450px auto auto auto;
   width: 100px;
 }
 
@@ -55,4 +61,17 @@
   animation: loader 2s infinite linear;
   height: 0;
   width: 0;
+}
+
+@media (max-width: 1329px) {
+  .stats {
+    flex-wrap: wrap;
+  }
+  .keyData {
+    display: grid;
+    width: 824px;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-top: 20px;
+  }
 }

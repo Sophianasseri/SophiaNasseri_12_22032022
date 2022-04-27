@@ -14,6 +14,7 @@ import styles from './activity.module.css';
 
 /**
  * Display a custom tooltip on chart
+ * @component
  * @param {Boolean} active If true the tooltop will be displayed
  * @param {Array} payload Data to be displayed in the tooltip
  */
@@ -29,16 +30,16 @@ function CustomTooltip({ active, payload }) {
 
   return null;
 }
-const days = ['1', '2', '3', '4', '5', '6', '7'];
 /**
  * Component for rendering user's daily activity in a bar chart
  * @param {Array} data User's daily  sessions data
  */
 function Activity({ data }) {
+  const days = data.map((elt) => elt.day.split('-')[2]);
   return (
     <div className={styles.chart}>
       <p className={styles.title}>Activité quotidienne</p>
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="99%" height="100%">
         <BarChart data={data} margin={{ bottom: 10 }}>
           <CartesianGrid
             strokeDasharray="3 3"
@@ -69,7 +70,10 @@ function Activity({ data }) {
             dataKey="calories"
             domain={['dataMin -10', 'dataMax +10']}
           />
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip
+            content={<CustomTooltip />}
+            cursor={{ fill: '#BBBBBB', opacity: 0.5 }}
+          />
           <Legend
             wrapperStyle={{
               top: -50,

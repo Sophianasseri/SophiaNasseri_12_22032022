@@ -2,15 +2,18 @@
   background: black;
   color: white;
   padding: 1em;
-  width: 100px;
+  width: 117px;
   height: 100%;
   position: fixed;
-  top: 60px;
+  top: 70px;
   left: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+}
+.sideNav {
+  margin-top: 30px;
 }
 
 .nav li {
@@ -19,4 +22,5 @@
 .copyright {
   writing-mode: vertical-rl;
   transform: rotate(-180deg);
+  font-size: 12px;
 }

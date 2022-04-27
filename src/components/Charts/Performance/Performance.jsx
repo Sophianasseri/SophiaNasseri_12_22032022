@@ -39,7 +39,7 @@ function Performance({ data }) {
 
   return (
     <div className="radar-chart">
-      <ResponsiveContainer className="test" width="100%" height="100%">
+      <ResponsiveContainer className="test" width="99%" height="100%">
         <RadarChart
           outerRadius="70%"
           data={performanceData}

@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import KeyData from '../../components/KeyData/KeyData';
@@ -11,19 +12,22 @@ import DayScore from '../../components/Charts/DayScore/DayScore';
 import AverageSession from '../../components/Charts/AverageSession/AverageSession';
 import Activity from '../../components/Charts/Activity/Activity';
 import useFetch from '../../useFetch';
+import data from '../../assets/data.json';
 
 function User() {
   const { id } = useParams();
 
-  const { data, isLoading } = useFetch(id);
+  const { dataUser, isLoading } = useFetch(id);
 
-  const userData = data[0];
-  const activityData = data[1];
-  const sessionsData = data[2];
-  const performanceData = data[3];
-
-  console.log(data);
-
+  const userData =
+    process.env.REACT_APP_SOURCE === 'API' ? dataUser[0] : data[0];
+  const activityData =
+    process.env.REACT_APP_SOURCE === 'API' ? dataUser[1] : data[1];
+  const sessionsData =
+    process.env.REACT_APP_SOURCE === 'API' ? dataUser[2] : data[2];
+  const performanceData =
+    process.env.REACT_APP_SOURCE === 'API' ? dataUser[3] : data[3];
+  console.log(dataUser);
   return (
     <main className={styles.main}>
       {!isLoading ? (

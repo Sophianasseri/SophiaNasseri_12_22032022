@@ -59,7 +59,7 @@ function AverageSession({ data }) {
   return (
     <div className={styles.chart}>
       <p className={styles.title}>Durée moyenne des sessions</p>
-      <ResponsiveContainer width="100%" height="80%">
+      <ResponsiveContainer width="99%" height="80%">
         <LineChart data={data}>
           <XAxis
             dataKey="day"

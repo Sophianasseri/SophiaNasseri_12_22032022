@@ -18,7 +18,7 @@ function DayScore({ data }) {
   return (
     <div className="pie-chart">
       <p>Score</p>
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="99%" height="100%">
         <PieChart>
           <Pie
             data={pieData}
@@ -28,8 +28,8 @@ function DayScore({ data }) {
             innerRadius={75}
             outerRadius={90}
             cornerRadius="50%"
-            startAngle={130}
-            endAngle={-160}
+            startAngle={90}
+            endAngle={450}
           >
             {pieData.map((entry, index) => {
               if (index === 1) {

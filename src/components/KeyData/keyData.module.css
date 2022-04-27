@@ -1,11 +1,12 @@
 .keyData {
   display: flex;
   align-items: center;
+  justify-content: center;
   background: #fbfbfb;
-  padding: 2rem;
+  padding: 0.5rem;
   width: 250px;
-  margin-bottom: 30px;
   border-radius: 5px;
+  height: 124px;
 }
 
 .image {
