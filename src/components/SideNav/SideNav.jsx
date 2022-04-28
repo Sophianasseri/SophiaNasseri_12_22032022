@@ -5,6 +5,14 @@ import bike from '../../assets/bike.svg';
 import halter from '../../assets/halter.svg';
 import styles from './sideNav.module.css';
 
+/**
+ * Component for rendering sde navigation bar of the app
+ * @component
+ * return (
+ *    <SideNav />
+ * )
+ */
+
 function SideNav() {
   return (
     <aside className={styles.sidebar}>

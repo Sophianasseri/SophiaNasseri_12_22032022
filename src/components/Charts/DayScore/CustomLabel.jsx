@@ -2,6 +2,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * Component for displaying a custom legend on DailyScore chart
+ */
+
 function CustomLabel({ viewBox, score = 0 }) {
   const { cx, cy } = viewBox;
   return (
@@ -43,10 +47,16 @@ function CustomLabel({ viewBox, score = 0 }) {
 export default CustomLabel;
 
 CustomLabel.propTypes = {
+  /**
+   * SVG axis coordinates
+   */
   viewBox: PropTypes.shape({
     cx: PropTypes.number,
     cy: PropTypes.number,
   }),
+  /**
+   * User's daily score
+   */
   score: PropTypes.number.isRequired,
 };
 CustomLabel.defaultProps = {

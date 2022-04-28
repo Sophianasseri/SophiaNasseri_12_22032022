@@ -7,7 +7,12 @@ import './dayScore.css';
 
 /**
  * Component for rendering user's daily score in a pie chart
- * @param {Number} data User's daily score data
+ * @component
+ * @example
+ * const data = userData.todayScore
+ * return (
+ *  <DayScore data={data} />
+ * )
  */
 function DayScore({ data }) {
   const pieData = [
@@ -55,5 +60,8 @@ function DayScore({ data }) {
 export default DayScore;
 
 DayScore.propTypes = {
+  /**
+   * User's daily score
+   */
   data: PropTypes.number.isRequired,
 };

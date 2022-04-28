@@ -3,6 +3,13 @@ import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
 import styles from './header.module.css';
 
+/**
+ * Component for rendering the app's header
+ * @component
+ * return (
+ *  <Header />
+ * )
+ */
 function Header() {
   return (
     <header className={styles.header}>

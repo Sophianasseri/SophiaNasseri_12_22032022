@@ -18,7 +18,7 @@ function User() {
   const { id } = useParams();
 
   const { dataUser, isLoading } = useFetch(id);
-
+  // We use environment variable to retreive either API or mocked data
   const userData =
     process.env.REACT_APP_SOURCE === 'API' ? dataUser[0] : data[0];
   const activityData =
@@ -27,7 +27,7 @@ function User() {
     process.env.REACT_APP_SOURCE === 'API' ? dataUser[2] : data[2];
   const performanceData =
     process.env.REACT_APP_SOURCE === 'API' ? dataUser[3] : data[3];
-  console.log(dataUser);
+
   return (
     <main className={styles.main}>
       {!isLoading ? (

@@ -11,9 +11,8 @@ import {
 import styles from './averageSession.module.css';
 
 /**
- * Display a custom tooltip on chart
- * @param {Boolean} active If true the tooltop will be displayed
- * @param {Array} payload Data to be displayed in the tooltip
+ * Component for displaying a custom tooltip on chart
+ *@component
  */
 function CustomTooltip({ active, payload }) {
   if (active && payload && payload.length) {
@@ -28,7 +27,12 @@ function CustomTooltip({ active, payload }) {
 }
 /**
  * Component for rendering user's performance in a radar chart
- * @param {Array} data User's performance data
+ * @component
+ * @example
+ * const data = sessionsData.sessions
+ * return (
+ *  <AverageSession data={data} />
+ * )
  */
 function AverageSession({ data }) {
   /**
@@ -96,7 +100,13 @@ function AverageSession({ data }) {
 export default AverageSession;
 
 CustomTooltip.propTypes = {
+  /**
+   * If true the tooltip whih be visible
+   */
   active: PropTypes.bool,
+  /**
+   * User's activity data to display in tooltip
+   */
   payload: PropTypes.arrayOf(Object),
 };
 CustomTooltip.defaultProps = {
@@ -104,9 +114,18 @@ CustomTooltip.defaultProps = {
   payload: [],
 };
 AverageSession.propTypes = {
+  /**
+   * Average length for a user's session
+   */
   data: PropTypes.arrayOf(
     PropTypes.shape({
+      /**
+       * Day of the week
+       */
       day: PropTypes.number,
+      /**
+       * Length of user's session
+       */
       sessionLength: PropTypes.number,
     }),
   ),

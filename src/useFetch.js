@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+/**
+ * Custom hook for managing data
+ * @param {string} userId Id of the user
+ */
+
 const useFetch = (userId) => {
   const [dataUser, setDataUser] = useState({});
   const [error, setError] = useState(false);

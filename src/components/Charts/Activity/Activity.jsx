@@ -13,10 +13,9 @@ import {
 import styles from './activity.module.css';
 
 /**
- * Display a custom tooltip on chart
+ * Component for displaying a custom tooltip on chart
  * @component
- * @param {Boolean} active If true the tooltop will be displayed
- * @param {Array} payload Data to be displayed in the tooltip
+ *
  */
 function CustomTooltip({ active, payload }) {
   if (active && payload && payload.length) {
@@ -32,7 +31,12 @@ function CustomTooltip({ active, payload }) {
 }
 /**
  * Component for rendering user's daily activity in a bar chart
- * @param {Array} data User's daily  sessions data
+ * @component
+ * @example
+ * const data = activityData.sessions
+ * return (
+ *  <Activity data={data} />
+ * )
  */
 function Activity({ data }) {
   const days = data.map((elt) => elt.day.split('-')[2]);
@@ -109,7 +113,13 @@ function Activity({ data }) {
 export default Activity;
 
 CustomTooltip.propTypes = {
+  /**
+   * If true the tooltip whih be visible
+   */
   active: PropTypes.bool,
+  /**
+   * User's activity data to display in tooltip
+   */
   payload: PropTypes.arrayOf(Object),
 };
 CustomTooltip.defaultProps = {
@@ -117,10 +127,22 @@ CustomTooltip.defaultProps = {
   payload: [],
 };
 Activity.propTypes = {
+  /**
+   * User's daily activity satistics for a session
+   */
   data: PropTypes.arrayOf(
     PropTypes.shape({
+      /**
+       * Session's date
+       */
       day: PropTypes.string,
+      /**
+       * User's weight
+       */
       kilogram: PropTypes.number,
+      /**
+       * User's calories loss
+       */
       calories: PropTypes.number,
     }),
   ),

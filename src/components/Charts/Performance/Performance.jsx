@@ -12,46 +12,44 @@ import './performance.css';
 
 /**
  * Component for rendring user's daily score in a pie chart
- * @param {Object} data User's daily score data
+ * @component
+ * @example
+ * const data = performanceData
+ * return (
+ *  <Performance data={data} />
+ * )
  */
 function Performance({ data }) {
-  const performanceData = data.data.reverse();
+  const performanceData = data.data;
 
-  const formatedLabel = (label) => {
-    switch (label) {
-      case 1:
-        return 'Cardio';
-      case 2:
-        return 'Energie';
-      case 3:
-        return 'Endurance';
-      case 4:
-        return 'Force';
-      case 5:
-        return 'Vitesse';
-      case 6:
-        return 'Intensité';
-
-      default:
-        return label;
-    }
+  const formatKind = {
+    cardio: 'Cardio',
+    energy: 'Energie',
+    endurance: 'Endurance',
+    strength: 'Force',
+    speed: 'Vitesse',
+    intensity: 'Intensité',
   };
+
+  const sortLabels = Object.values(formatKind);
+
+  // Format data to match app design
+  const formattedData = [];
+  performanceData.map((d, i) => {
+    performanceData[i].kind = sortLabels[i];
+    return formattedData.push(performanceData[i]);
+  });
+  formattedData.reverse();
 
   return (
     <div className="radar-chart">
       <ResponsiveContainer className="test" width="99%" height="100%">
-        <RadarChart
-          outerRadius="70%"
-          data={performanceData}
-          startAngle="30"
-          endAngle="-330"
-        >
+        <RadarChart outerRadius="70%" data={formattedData}>
           <PolarGrid radialLines={false} stroke="white" />
           <PolarRadiusAxis tickCount={6} tick={false} axisLine={false} />
           <PolarAngleAxis
             dataKey="kind"
             tick={{ fill: 'white', fontSize: '12px' }}
-            tickFormatter={formatedLabel}
           />
           <Radar dataKey="value" fill="#ff0101" fillOpacity={0.7} />
         </RadarChart>
@@ -64,7 +62,13 @@ export default Performance;
 
 Performance.propTypes = {
   data: PropTypes.shape({
+    /**
+     * Labels' name
+     */
     kind: PropTypes.objectOf(PropTypes.string),
+    /**
+     * User's performance*
+     */
     data: PropTypes.arrayOf(Object),
   }),
 };
