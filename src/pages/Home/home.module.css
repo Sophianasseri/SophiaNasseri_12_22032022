@@ -5,3 +5,21 @@
 .container {
   margin: 130px 50px 50px 170px;
 }
+.title {
+  margin-bottom: 50px;
+}
+
+.title span {
+  color: var(--main-color);
+}
+
+.links {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.links a {
+  color: var(--main-color);
+  margin-bottom: 10px;
+}
