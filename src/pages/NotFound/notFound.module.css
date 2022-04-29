@@ -1,0 +1,21 @@
+.main {
+  margin: auto;
+  max-width: 1440px;
+}
+.container {
+  margin: 130px 50px 50px 170px;
+}
+.title {
+  text-align: center;
+  color: var(--main-color);
+  font-size: 90px;
+}
+
+.error {
+  text-align: center;
+  font-size: 20px;
+}
+
+.text {
+  margin-top: 400px;
+}
