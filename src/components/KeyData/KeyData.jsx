@@ -5,6 +5,7 @@ import styles from './keyData.module.css';
 
 /**
  * Component for rendering user's key data
+ * @component
  * @example
  * const icon = calories.png
  * const count = 1930

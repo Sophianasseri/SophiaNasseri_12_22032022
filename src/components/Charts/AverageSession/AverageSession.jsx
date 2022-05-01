@@ -132,5 +132,5 @@ AverageSession.propTypes = {
 };
 
 AverageSession.defaultProps = {
-  data: 'average-session',
+  data: [{ day: 1, sessionLength: 60 }],
 };

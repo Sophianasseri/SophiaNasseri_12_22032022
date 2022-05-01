@@ -60,5 +60,5 @@ CustomLabel.propTypes = {
   score: PropTypes.number.isRequired,
 };
 CustomLabel.defaultProps = {
-  viewBox: {},
+  viewBox: { cx: 100, cy: 100 },
 };

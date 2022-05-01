@@ -149,5 +149,5 @@ Activity.propTypes = {
 };
 
 Activity.defaultProps = {
-  data: 'activity',
+  data: [{ day: '2022-01-01', kilogram: 50, calories: 300 }],
 };

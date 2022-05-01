@@ -7,6 +7,7 @@ import './dayScore.css';
 
 /**
  * Component for rendering user's daily score in a pie chart
+ *
  * @component
  * @example
  * const data = userData.todayScore

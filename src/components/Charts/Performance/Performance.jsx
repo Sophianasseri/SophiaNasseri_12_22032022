@@ -65,14 +65,30 @@ Performance.propTypes = {
     /**
      * Labels' name
      */
-    kind: PropTypes.objectOf(PropTypes.string),
+    kind: PropTypes.shape({
+      id: PropTypes.string,
+      label: PropTypes.string,
+    }),
     /**
      * User's performance*
      */
-    data: PropTypes.arrayOf(Object),
+    data: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.number,
+        kind: PropTypes.number,
+      }),
+    ),
   }),
 };
 
 Performance.defaultProps = {
-  data: 'average-session',
+  data: {
+    kind: { id: '1', label: 'kind' },
+    data: [
+      {
+        value: 100,
+        kind: 1,
+      },
+    ],
+  },
 };
