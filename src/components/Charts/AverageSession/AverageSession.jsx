@@ -26,7 +26,7 @@ function CustomTooltip({ active, payload }) {
   return null;
 }
 /**
- * Component for rendering user's performance in a radar chart
+ * Component for rendering user's average session length in a line chart
  * @component
  * @example
  * const data = sessionsData.sessions

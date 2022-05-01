@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import User from './models/User';
+import Activity from './models/Activity';
+import AverageSessions from './models/AverageSessions';
+import Performance from './models/Performance';
 
 /**
  * Custom hook for managing data
@@ -25,10 +29,10 @@ const useFetch = (userId) => {
           endpoints.map((endpoint) => axios.get(endpoint)),
         ).then(
           axios.spread((...responses) => {
-            const userData = responses[0].data.data;
-            const activityData = responses[1].data.data;
-            const sessionsData = responses[2].data.data;
-            const performanceData = responses[3].data.data;
+            const userData = new User(responses[0].data.data);
+            const activityData = new Activity(responses[1].data.data);
+            const sessionsData = new AverageSessions(responses[2].data.data);
+            const performanceData = new Performance(responses[3].data.data);
             setDataUser(
               Array.from([
                 userData,

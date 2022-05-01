@@ -53,7 +53,7 @@ function User() {
               <div className={styles.smallCharts}>
                 <AverageSession data={sessionsData.sessions} />
                 <Performance data={performanceData} />
-                <DayScore data={userData.todayScore || userData.score} />
+                <DayScore data={userData.todayScore} />
               </div>
             </div>
             <div className={styles.keyData}>
